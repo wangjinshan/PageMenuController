@@ -17,11 +17,6 @@ class PageMenuViewConfig {
     open var indicatorTopMargin:CGFloat = 5.0
     open var indicatorWidthBasedOnTitleTextWidth:Bool = true
     open var enableHorizontalBounce : Bool = true
-    open var menuItemWidth : CGFloat = 66.0
-    open var unselectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 14)
-    open var unselectedMenuItemLabelColor:UIColor = UIColor.black
-    open var selectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 17)
-    open var selectedMenuItemLabelColor:UIColor = UIColor.red
     open var scrollAnimationDurationOnMenuItemTap:Int = 300
     open var viewBackgroundColor : UIColor = UIColor.orange
     open var selectionIndicatorColor: UIColor = UIColor.red
@@ -32,10 +27,12 @@ class PageMenuViewConfig {
 }
 
 class PageMenuItemConfig {
-    open var menuItemSelectedBackgroundColor:UIColor = UIColor.white
+    open var menuItemSelectedBackgroundColor:UIColor = UIColor.cyan
     open var menuItemUnSelectedBackgroundColor:UIColor = UIColor.white
-    open var menuItemCornerRadius:CGFloat = 0
-    open var menuItemBottomMargin:CGFloat = 5
+    open var menuItemTopMargin:CGFloat = 2
+    open var menuItemBottomMargin:CGFloat = 7
+    open var menuItemCornerRadius:CGFloat = 4
+    open var menuItemLabelBottomMargin:CGFloat = 0
     open var menuItemTitleIconMargin:CGFloat = 1
     open var menuItemWidth:CGFloat = 66.0
     open var menuItemHeight:CGFloat = 34.0
@@ -44,8 +41,8 @@ class PageMenuItemConfig {
     
     open var unselectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 14)
     open var unselectedMenuItemLabelColor:UIColor = UIColor.black
-    open var selectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 17)
-   open var selectedMenuItemLabelColor:UIColor = UIColor.red
+    open var selectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 16)
+    open var selectedMenuItemLabelColor:UIColor = UIColor.red
     
     init() {}
 }

@@ -29,18 +29,8 @@ extension PageMenuController {
                 configuration.menuItemLeftMargin = value
             case let .menuItemMargin(value):
                 configuration.menuItemMargin = value
-            case let .menuItemWidth(value):
-                configuration.menuItemWidth = value
             case let .scrollAnimationDurationOnMenuItemTap(value):
                 configuration.scrollAnimationDurationOnMenuItemTap = value
-            case let .unselectedMenuItemLabelFont(value):
-                configuration.unselectedMenuItemLabelFont = value
-            case let .unselectedMenuItemLabelColor(value):
-                configuration.unselectedMenuItemLabelColor = value
-            case let .selectedMenuItemLabelFont(value):
-                configuration.selectedMenuItemLabelFont = value
-            case let .selectedMenuItemLabelColor(value):
-                configuration.selectedMenuItemLabelColor = value
             case let .viewBackgroundColor(value):
                 configuration.viewBackgroundColor = value
             case let .selectionIndicatorColor(value):

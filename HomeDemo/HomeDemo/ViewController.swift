@@ -47,12 +47,12 @@ class ViewController: UIViewController {
 extension ViewController{
     func customPageMenu()  {
         
-        let item1 = PageMenuItemView(options: [.menuItemTitle("牛逼1"),.menuItemHeight(34),.menuItemWidth(66)])
+        let item1 = PageMenuItemView(options: [.menuItemTitle("牛逼1"),.menuItemHeight(34),.menuItemWidth(66),.menuItemIcon("jinhangzhong")])
         let item2 = PageMenuItemView(options: [.menuItemTitle("牛逼2"),.menuItemHeight(34),.menuItemWidth(66)])
         
         let item3 = PageMenuItemView(options: [.menuItemTitle("牛逼3"),.menuItemHeight(34),.menuItemWidth(66)])
         
-        let item4 = PageMenuItemView(options: [.menuItemTitle("牛逼4"),.menuItemHeight(34),.menuItemWidth(66)])
+        let item4 = PageMenuItemView(options: [.menuItemTitle("牛逼4"),.menuItemHeight(34),.menuItemWidth(66),.menuItemIcon("jinhangzhong")])
         
         let item5 = PageMenuItemView(options: [.menuItemTitle("牛逼5"),.menuItemHeight(34),.menuItemWidth(66)])
         
@@ -65,18 +65,20 @@ extension ViewController{
         
         view.addSubview(pageMenuController!.view)
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            
-//            self.pageMenuController?.resetMenuItemLayout(itemsArrBlock: { (itemsArr) -> ([PageMenuItemView]) in
-//                let item = itemsArr.first
-//                item?.layoutItem(title: "哈哈", icon: "jinhangzhong")
-//                
-//                let item3 =  itemsArr[2]
-//                item3.layoutItem(title: "牛逼", icon: "")
-//                
-//                return itemsArr
-//            })
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+
+            self.pageMenuController?.resetMenuItemLayout(itemsArrBlock: { (itemsArr) -> ([PageMenuItemView]) in
+                let item = itemsArr.first
+                item!.config.menuItemIcon = "jinhangzhong"
+                item!.layoutItem(config: item!.config)
+
+                let item3 =  itemsArr[2]
+                item3.config.menuItemIcon = "jinhangzhong"
+                item3.layoutItem(config: item3.config)
+
+                return itemsArr
+            })
+        }
     }
     
     func sdkPageMenu()  {
@@ -112,7 +114,6 @@ extension ViewController{
             label?.attributedText = self.createAttributedText(title: "讨论")
         }
     }
-
 }
 
 extension ViewController {
