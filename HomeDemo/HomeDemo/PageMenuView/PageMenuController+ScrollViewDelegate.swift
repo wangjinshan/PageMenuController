@@ -107,7 +107,7 @@ extension PageMenuController: UIScrollViewDelegate{
     
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView.isEqual(controllerScrollView) {
-         
+            if currentPageIndex >= controllerArray.count { return }
             let currentController = controllerArray[currentPageIndex]
             delegate?.didMoveToPage?(currentController, index: currentPageIndex)
  

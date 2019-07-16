@@ -61,23 +61,74 @@ extension PageMenuController{
         setMenuItemLayout()
     }
     
+    func addMenuItem(item:PageMenuItemView,controller:UIViewController) {
+        menuItems.append(item)
+        controllerArray.append(controller)
+        menuItemWidths.append(item.config.menuItemWidth)
+        for sub in menuScrollView.subviews {
+            if sub is PageMenuItemView {
+                sub.removeFromSuperview()
+            }
+        }
+        setScrollViewContent()
+        setMenuItemLayout()
+        configSelectedMenuItem(index: currentPageIndex)
+    }
+    
+    func removeMenuItem(index:Int) {
+        removePageAtIndex(index)
+        if index < menuItems.count {
+            menuItems.remove(at: index)
+            controllerArray.remove(at: index)
+            menuItemWidths.remove(at: index)
+        }
+        for sub in menuScrollView.subviews {
+            if sub is PageMenuItemView {
+                sub.removeFromSuperview()
+            }
+        }
+        setScrollViewContent()
+        setMenuItemLayout()
+        
+        switch index {
+        case 0:
+            currentPageIndex = 1
+            configSelectedMenuItem(index: 0)
+            moveToPage(0)
+            break
+        case menuItems.count:
+            currentPageIndex = index - 1
+            configSelectedMenuItem(index: index - 1)
+            moveToPage(index - 1)
+            break
+        default:
+            currentPageIndex = index + 1
+            configSelectedMenuItem(index: index)
+            moveToPage(index)
+            break
+        }
+    }
+}
+
+extension PageMenuController {
     func addPageAtIndex(_ index : Int) {
-        let currentController = controllerArray[index]
-        delegate?.willMoveToPage?(currentController, index: index)
-        let newVC = controllerArray[index]
-        newVC.willMove(toParent: self)
-        newVC.view.frame = CGRect(x: self.view.frame.width * CGFloat(index), y: 0.0, width: self.view.frame.width, height: self.view.frame.height - configuration.menuHeight)
-        self.addChild(newVC)
-        self.controllerScrollView.addSubview(newVC.view)
-        newVC.didMove(toParent: self)
+        if let currentController = controllerArray[safe: index], let  newVC = controllerArray[safe: index] {
+            delegate?.willMoveToPage?(currentController, index: index)
+            newVC.willMove(toParent: self)
+            newVC.view.frame = CGRect(x: self.view.frame.width * CGFloat(index), y: 0.0, width: self.view.frame.width, height: self.view.frame.height - configuration.menuHeight)
+            self.addChild(newVC)
+            self.controllerScrollView.addSubview(newVC.view)
+            newVC.didMove(toParent: self)
+        }
     }
     
     func removePageAtIndex(_ index : Int) {
-        let oldVC = controllerArray[index]
-        oldVC.willMove(toParent: nil)
-        oldVC.view.removeFromSuperview()
-        oldVC.removeFromParent()
-        oldVC.didMove(toParent: nil)
+        if let oldVC = controllerArray[safe: index] {
+            oldVC.willMove(toParent: nil)
+            oldVC.view.removeFromSuperview()
+            oldVC.removeFromParent()
+            oldVC.didMove(toParent: nil)
+        }
     }
     
     func moveSelectionIndicator(_ pageIndex: Int) {
@@ -86,14 +137,15 @@ extension PageMenuController{
                 let selectionIndicatorWidth : CGFloat = self.selectionIndicatorView.frame.width
                 self.selectionIndicatorView.frame = CGRect(x: 0, y: self.selectionIndicatorView.frame.origin.y, width: selectionIndicatorWidth, height: self.selectionIndicatorView.frame.height)
                 if pageIndex < self.menuItems.count {
-                    let item   = self.menuItems[pageIndex]
-                    self.selectionIndicatorView.center.x = item.center.x
+                    if let item   = self.menuItems[safe: pageIndex] {
+                        self.selectionIndicatorView.center.x = item.center.x
+                    }
                 }
                 if self.menuItems.count > 0 {
-                    let lastItem = self.menuItems[self.lastPageIndex]
-                    let currentItem = self.menuItems[self.currentPageIndex]
-                    lastItem.configureNormalState(config: lastItem.config)
-                    currentItem.configureSelectedState(config: currentItem.config)
+                    if let lastItem = self.menuItems[safe: self.lastPageIndex],let currentItem = self.menuItems[safe: self.currentPageIndex] {
+                        lastItem.configureNormalState(config: lastItem.config)
+                        currentItem.configureSelectedState(config: currentItem.config)
+                    }
                 }
             })
         }

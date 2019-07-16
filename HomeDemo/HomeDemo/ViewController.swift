@@ -47,38 +47,43 @@ class ViewController: UIViewController {
 extension ViewController{
     func customPageMenu()  {
         
-        let item1 = PageMenuItemView(options: [.menuItemTitle("牛逼1"),.menuItemHeight(34),.menuItemWidth(66),.menuItemIcon("jinhangzhong")])
-        let item2 = PageMenuItemView(options: [.menuItemTitle("牛逼2"),.menuItemHeight(34),.menuItemWidth(66)])
+        let item1 = PageMenuItemView(options: [.menuItemTitle("牛A"),.menuItemIcon("jinhangzhong")])
+        let item2 = PageMenuItemView(options: [.menuItemTitle("牛B")])
         
-        let item3 = PageMenuItemView(options: [.menuItemTitle("牛逼3"),.menuItemHeight(34),.menuItemWidth(66)])
+        let item3 = PageMenuItemView(options: [.menuItemTitle("牛C")])
         
-        let item4 = PageMenuItemView(options: [.menuItemTitle("牛逼4"),.menuItemHeight(34),.menuItemWidth(66),.menuItemIcon("jinhangzhong")])
+        let item4 = PageMenuItemView(options: [.menuItemTitle("牛D"),.menuItemIcon("jinhangzhong")])
         
-        let item5 = PageMenuItemView(options: [.menuItemTitle("牛逼5"),.menuItemHeight(34),.menuItemWidth(66)])
-        
-        let item6 = PageMenuItemView(options: [.menuItemTitle("牛逼6"),.menuItemHeight(34),.menuItemWidth(66)])
-        
-        let item7 = PageMenuItemView(options: [.menuItemTitle("牛逼7"),.menuItemHeight(34),.menuItemWidth(66)])
+        let item5 = PageMenuItemView(options: [.menuItemTitle("牛E")])
         
         let options:[PageMenuControllerOption] = []
-        pageMenuController =  PageMenuController(frame: CGRect(x: 0, y: 64, width: view.frame.size.width, height: view.frame.size.height), menuItems: [item1,item2,item3,item4,item5,item6,item7], controllers: [AViewController(),BViewController(),CViewController(),DViewController(),EViewController(),FViewController(),GViewController()], options: options)
+        pageMenuController =  PageMenuController(frame: CGRect(x: 0, y: 64, width: view.frame.size.width, height: view.frame.size.height), menuItems: [item1,item2,item3,item4,item5], controllers: [AViewController(),BViewController(),CViewController(),DViewController(),EViewController()], options: options)
         
         view.addSubview(pageMenuController!.view)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-
+            
             self.pageMenuController?.resetMenuItemLayout(itemsArrBlock: { (itemsArr) -> ([PageMenuItemView]) in
                 let item = itemsArr.first
                 item!.config.menuItemIcon = "jinhangzhong"
-                item!.layoutItem(config: item!.config)
+                item!.setItemContent(config: item!.config)
 
                 let item3 =  itemsArr[2]
                 item3.config.menuItemIcon = "jinhangzhong"
-                item3.layoutItem(config: item3.config)
+                item3.setItemContent(config: item3.config)
 
                 return itemsArr
             })
         }
+//        var index = 0
+//         _ = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+//            self.pageMenuController?.removeMenuItem(index: 0)
+//            index += 1
+//             let item = PageMenuItemView(options: [.menuItemTitle("牛\(index)"),.menuItemHeight(34),.menuItemWidth(66)])
+//            self.pageMenuController?.addMenuItem(item: item, controller: UIViewController())
+//        }
+        
+        
     }
     
     func sdkPageMenu()  {

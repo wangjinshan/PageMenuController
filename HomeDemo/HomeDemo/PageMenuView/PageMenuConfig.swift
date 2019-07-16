@@ -10,18 +10,18 @@ import UIKit
 
 class PageMenuViewConfig {
     open var customLayoutMenuView:Bool = true
-    open var menuItemLeftMargin : CGFloat = 15.0
-    open var menuItemMargin : CGFloat = 44.0
-    open var menuHeight:CGFloat = 34.0
-    open var menuBackgroundColor = UIColor.green
-    open var indicatorTopMargin:CGFloat = 5.0
+    open var menuItemLeftMargin : CGFloat = 25.0
+    open var menuItemMargin : CGFloat = 12.0
+    open var menuHeight:CGFloat = 45.0
+    open var menuBackgroundColor = UIColor.white
+    open var indicatorTopMargin:CGFloat = 4.0
     open var indicatorWidthBasedOnTitleTextWidth:Bool = true
-    open var enableHorizontalBounce : Bool = true
+    open var enableHorizontalBounce : Bool = false
     open var scrollAnimationDurationOnMenuItemTap:Int = 300
-    open var viewBackgroundColor : UIColor = UIColor.orange
+    open var viewBackgroundColor : UIColor = UIColor.white
     open var selectionIndicatorColor: UIColor = UIColor.red
-    open var selectionIndicatorHeight:CGFloat = 3.0
-    open var selectionIndicatorWidth:CGFloat = 44.0
+    open var selectionIndicatorHeight:CGFloat = 4.0
+    open var selectionIndicatorWidth:CGFloat = 18.0
     
     init() {}
 }
@@ -29,19 +29,19 @@ class PageMenuViewConfig {
 class PageMenuItemConfig {
     open var menuItemSelectedBackgroundColor:UIColor = UIColor.cyan
     open var menuItemUnSelectedBackgroundColor:UIColor = UIColor.white
-    open var menuItemTopMargin:CGFloat = 2
-    open var menuItemBottomMargin:CGFloat = 7
-    open var menuItemCornerRadius:CGFloat = 4
+    open var menuItemTopMargin:CGFloat = 0
+    open var menuItemBottomMargin:CGFloat = 8
+    open var menuItemCornerRadius:CGFloat = 0
     open var menuItemLabelBottomMargin:CGFloat = 0
-    open var menuItemTitleIconMargin:CGFloat = 1
-    open var menuItemWidth:CGFloat = 66.0
-    open var menuItemHeight:CGFloat = 34.0
+    open var menuItemTitleIconMargin:CGFloat = 3
+    open var menuItemWidth:CGFloat = 51.0
+    open var menuItemHeight:CGFloat = 45.0
     open var menuItemTitle:String = ""
     open var menuItemIcon:String = ""
     
     open var unselectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 14)
     open var unselectedMenuItemLabelColor:UIColor = UIColor.black
-    open var selectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 16)
+    open var selectedMenuItemLabelFont:UIFont = UIFont.systemFont(ofSize: 20)
     open var selectedMenuItemLabelColor:UIColor = UIColor.red
     
     init() {}

@@ -67,13 +67,8 @@ extension PageMenuController:UIGestureRecognizerDelegate {
         controllerScrollView.delegate = self
         controllerScrollView.contentInsetAdjustmentBehavior = .never
         
-        configMenuItem()
-        
-        for item in menuItems {
-            menuScrollView.addSubview(item)
-            menuItemWidths.append(item.config.menuItemWidth)
-        }
-        setMenuItemLayout()
+        configFirstController()
+        addMenuItem()
         
         let menuItemTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageMenuController.handleMenuItemTap(_:)))
         menuItemTapGestureRecognizer.numberOfTapsRequired = 1
@@ -83,27 +78,40 @@ extension PageMenuController:UIGestureRecognizerDelegate {
 
         var selectionIndicatorFrame : CGRect = CGRect()
         if !(menuItems.count > 0)  {return}
-        selectionIndicatorFrame = CGRect(x: 0, y: configuration.menuHeight - configuration.selectionIndicatorHeight, width: menuItems.first!.config.menuItemWidth, height: configuration.selectionIndicatorHeight)
+        selectionIndicatorFrame = CGRect(x: 0, y: configuration.menuHeight - configuration.selectionIndicatorHeight, width: configuration.selectionIndicatorWidth, height: configuration.selectionIndicatorHeight)
         selectionIndicatorView = UIView(frame: selectionIndicatorFrame)
         selectionIndicatorView.backgroundColor = configuration.selectionIndicatorColor
         selectionIndicatorView.center.x = menuItems.first!.center.x
         menuScrollView.addSubview(selectionIndicatorView)
     }
     
-    func configMenuItem()  {
-        if controllerArray.isEmpty {return}
-        let firstVc = controllerArray.first
-        firstVc?.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
-        controllerScrollView.addSubview(firstVc!.view)
-        addChild(firstVc!)
+    func configFirstController()  {
+        if !controllerArray.isEmpty {
+            let firstVc = controllerArray.first
+            firstVc?.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+            controllerScrollView.addSubview(firstVc!.view)
+            addChild(firstVc!)
+        }
+    }
+    
+    func configSelectedMenuItem(index:Int)  {
         if menuItems.isEmpty {return}
-        for (index,item) in menuItems.enumerated() {
-            if index == 0   {
+        for (num,item) in menuItems.enumerated() {
+            if index == num   {
                 item.configureSelectedState(config: item.config)
             }else{
                 item.configureNormalState(config: item.config)
             }
         }
+    }
+    
+    func addMenuItem()  {
+        for item in menuItems {
+            menuScrollView.addSubview(item)
+            menuItemWidths.append(item.config.menuItemWidth)
+        }
+        configSelectedMenuItem(index: 0)
+        setMenuItemLayout()
     }
     
     func setScrollViewContent() {
@@ -131,6 +139,10 @@ extension PageMenuController:UIGestureRecognizerDelegate {
     }
 }
 
-
+extension Array {
+    subscript (safe index: Int) -> Element? {
+        return (0 ..< count).contains(index) ? self[index] : nil
+    }
+}
 
 

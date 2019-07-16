@@ -22,11 +22,21 @@ class PageMenuItemView: UIView {
         frame = CGRect(x: 0, y: config.menuItemTopMargin, width: config.menuItemWidth, height: config.menuItemHeight - config.menuItemBottomMargin)
         addSubview(titleLabel)
         addSubview(imageView)
-        titleLabel.text = config.menuItemTitle
-            imageView.image = UIImage(named: config.menuItemIcon)
+        
         titleLabel.textAlignment = .center
-        layoutItem(config: config)
         layer.cornerRadius = config.menuItemCornerRadius
+        setItemContent(config: config)
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.right.equalTo(0)
+            make.bottom.equalTo(0)
+        }
+        imageView.snp.remakeConstraints { (make) in
+            make.bottom.equalTo(titleLabel.snp.top).offset(-3)
+            make.height.equalTo(18)
+            make.width.equalTo(35)
+            make.left.equalTo(titleLabel.snp.left).offset(20)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,32 +47,22 @@ class PageMenuItemView: UIView {
         titleLabel.font = config.selectedMenuItemLabelFont
         titleLabel.textColor  = config.selectedMenuItemLabelColor
         backgroundColor = config.menuItemUnSelectedBackgroundColor
+        titleLabel.snp.updateConstraints { (make) in
+            make.bottom.equalTo(0)
+        }
     }
     func configureNormalState(config: PageMenuItemConfig) {
         titleLabel.font = config.unselectedMenuItemLabelFont
         titleLabel.textColor  = config.unselectedMenuItemLabelColor
-        backgroundColor = config.menuItemSelectedBackgroundColor
+        backgroundColor = config.menuItemUnSelectedBackgroundColor
+        titleLabel.snp.updateConstraints{ (make) in
+            make.bottom.equalTo(-2)
+        }
     }
     
-    func layoutItem(config:PageMenuItemConfig)  {
+    func setItemContent(config:PageMenuItemConfig)  {
         titleLabel.text = config.menuItemTitle
         imageView.image = UIImage(named: config.menuItemIcon)
-        if config.menuItemIcon.isEmpty {
-            titleLabel.snp.remakeConstraints { (make) in
-                make.top.equalTo(config.menuItemTopMargin)
-                make.left.right.bottom.equalTo(0)
-            }
-        }else{
-            titleLabel.snp.remakeConstraints { (make) in
-                make.top.equalTo(config.menuItemTopMargin)
-                make.left.bottom.equalTo(0)
-            }
-            imageView.snp.remakeConstraints { (make) in
-                make.left.equalTo(titleLabel.snp.right).offset(config.menuItemTitleIconMargin)
-                make.right.equalTo(0)
-                make.centerY.equalTo(titleLabel.snp.centerY)
-            }
-        }
     }
 }
 
